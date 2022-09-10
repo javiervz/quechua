@@ -221,10 +221,8 @@ def decimal_quec_999999(N, suffix):
             D = yuq(D,True)
         return D
 
-
-
 st.title("**Números en Quechua!**")
 st.markdown('Escriba un número entre **1** y **999999**')
 
 N = st.number_input(':)',min_value=1, max_value=999999, value=1, step=1)
-st.write('{} en **Quechua** se escribe \n'.format(N), decimal_quec_999999(N))
+st.write('{} en **Quechua** se escribe \n'.format(N), decimal_quec_999999(N, True))
