@@ -211,7 +211,7 @@ def decimal_quec_999999(N, suffix):
         return 'pachak waranqa'
     ## múltiplos de 10000
     elif N%1000==0 and N>100000 and N<1000000:
-        return decimal_quec_9999(int(N/1000), -1*suffix)+' '+'waranqa'
+        return decimal_quec_9999(int(N/1000), suffix)+' '+'waranqa'
     ## números intermedios
     else:
         N_d = int(str(N)[1:])
