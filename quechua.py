@@ -1,34 +1,12 @@
 import streamlit as st
 
-#!/usr/bin/env python
-# coding: utf-8
-
-# # **Seminario de métodos computacionales para lenguas amerindias**
-# ### Roberto Zariquiey Biondi, rzariquiey@pucp.edu.pe
-# ### Javier Vera Zúñiga, jveraz@pucp.edu.pe
-
-# # Números en Quechua!
-
-# | número decimal | quechua | número decimal | quechua | número decimal | quechua | número decimal | quechua |
-# | :-: | :-: | :-: | :-: | :-: | :-: |  :-: | :-: |
-# |  1  |  huk  |  10  |  chunka  |  11  |  chunka huk-ni-yuq |  21   |  iskay chunka huk-ni-yuq |
-# |  2  |  iskay  |  20  |  iskay chunka | 12  |  chunka iskay-ni-yuq |  22  |  iskay chunka iskay-ni-yuq |
-# |  3  |  kimsa  |  30  |  kimsa chunka | 13  |  chunka kimsa-yuq |  23   |  iskay chunka kimsa-yuq |
-# |  4  |  tawa  |  40  |  tawa chunka |  14  |  chunka tawa-yuq |  24   |  iskay chunka tawa-yuq |
-# |  5  |  pichqa   |  50  |  pichqa chunka |  15  |  chunka pichqa-yuq |  25   |  iskay chunka pichqa-yuq |
-# |  6  |  suqta  |  60  |  suqta chunka |  16  |  chunka suqta-yuq |  26   |  iskay chunka suqta-yuq |
-# |  7  |  qanchis  |  70  |  qanchis chunka |  17  |  chunka qanchis-ni-yuq | 27   |  iskay chunka qanchis-ni-yuq |
-# |  8  |  pusaq  |  80  |  pusaq chunka |   18  |  chunka pusaq-ni-yuq |28   |  iskay chunka pusaq-ni-yuq |
-# |  9  |  isqun  |  90  |  isqun chunka |   19  |  chunka isqun-ni-yuq |29   |  iskay chunka isqun-ni-yuq |
-#
-# ¿Cómo implementamos esto en **Python**? Buscamos un código que **reciba** un número (por ejemplo, 34) y **entregue** el número en **Quechua.**
-
-# In[102]:
-
-
 ## Definamos los números de 1 a 10
 
 numeros_1_10 = ['huk', 'iskay', 'kimsa', 'tawa', 'pichqa', 'suqta', 'qanchis', 'pusaq', 'isqun', 'chunka']
+
+
+# In[2]:
+
 
 ## para esto creamos una función que recibe N (el número decimal) y  entrega el número en palabras (Quechua)
 
@@ -42,6 +20,32 @@ def decimal_quec(N):
     ## entregamos el número
     return numero_quechua
 
+
+# In[3]:
+
+
+N = 10
+
+decimal_quec(N)
+
+
+# Nuestra función solo sirve para números menores o iguales 10, ¿cómo agregamos esta información? En esto, hay una condición lógica encubierta: **si** el número es menor a 10, la función tiene sentido; en otro caso, la función va a fallar. Esto nos recuerda al condicional de la forma **if A, (then) B**, en donde si se cumple cierta condición **A**, ocurrirá **B**. ¿Cómo traducimos estas ideas a **Python**? Vamos por partes:
+#
+# - Condición **if A**: el número es menor a 10
+# ```python
+# if N <= 10:
+# ```
+# Noten la coloración de **if**, el uso de **in** y el **:** final.
+#
+# - Condición **(then) B**: esta consecuencia equivale a que si se cumple **A**, entonces usamos **sufijo1**
+# ```python
+# if N <= 10:
+#     posicion = N - 1
+# ```
+
+# In[4]:
+
+
 ## input:::N: número decimal
 ## output::: número en palabras (Quechua)
 def decimal_quec(N):
@@ -54,6 +58,7 @@ def decimal_quec(N):
         numero_quechua = numeros_1_10[posicion]
         ## entregamos el número
         return numero_quechua
+
 
 ## input:::N: número decimal
 ## output::: número en palabras (Quechua)
@@ -70,7 +75,6 @@ def decimal_quec(N):
     ## en otro caso
     else:
         print('no conozco números tan grandes :(')
-
 
 ## input:::N: número decimal
 ## output::: número en palabras (Quechua)
@@ -101,6 +105,7 @@ def decimal_quec(N):
     ## en otro caso
     else:
         print('no conozco números tan grandes :(')
+
 
 ## input:::N: número decimal
 ## output::: número en palabras (Quechua)
@@ -134,7 +139,7 @@ def decimal_quec_99(N):
     ## dos condiciones simultáneas
     elif N>=20 and N<=99:
         if unidad == 0:
-            numero_quechua = numeros_1_10[decena-1] + ' ' + 'chunka' + '-yuq'
+            numero_quechua = numeros_1_10[decena-1] + ' ' + 'chunka'
         else:
             numero_quechua = numeros_1_10[decena-1] + ' ' + 'chunka' + ' ' + numeros_1_10[unidad - 1]
             ## si termina en vocal, ponemos -yuq
@@ -148,6 +153,8 @@ def decimal_quec_99(N):
     else:
         print('no conozco números tan grandes :(')
 
+
+
 def decimal_quec_999(N):
     ## centena
     centena=int(str(N)[0])
@@ -159,16 +166,21 @@ def decimal_quec_999(N):
         return 'pachak'
     ## múltiplos de 100
     elif N%100==0 and N>100 and N<1000:
-        return numeros_1_10[centena - 1]+' '+'pachak' + '-yuq'
+        return numeros_1_10[centena - 1]+' '+'pachak'
     ## números intermedios
     else:
         D = decimal_quec_99(int(str(N)[1:]))
-        if not D.endswith('-yuq'):
-            D = D + '-yuq'
+        if not D.endswith('chunka') and not D.endswith('-yuq'):
+            if D[-1] in ['a','e','i','o','u']:
+                D = D + '-yuq'
+            ## si termina en consonante
+            else:
+                D = D + '-ni' + '-yuq'
         if centena==1:
             return 'pachak'+' '+D
         else:
             return numeros_1_10[centena - 1]+' '+'pachak'+' '+D
+
 
 def decimal_quec_9999(N):
     ## mil
@@ -188,6 +200,7 @@ def decimal_quec_9999(N):
             return 'waranqa'+' '+decimal_quec_999(int(str(N)[1:]))
         else:
             return numeros_1_10[mil - 1]+' '+'waranqa'+' '+decimal_quec_999(int(str(N)[1:]))
+
 
 def decimal_quec_99999(N):
     ## 100mil
@@ -221,6 +234,7 @@ def decimal_quec_999999(N):
     ## números intermedios
     else:
         return decimal_quec_9999(int(decenamil[0]))+' '+'waranqa'+' '+decimal_quec_99999(int(decenamil[1]))
+
 
 st.title("**Números en Quechua!**")
 st.markdown('Escriba un número entre **1** y **999999**')
