@@ -46,6 +46,21 @@ def decimal_quec(N):
     ## en otro caso
     else:
         print('no conozco números tan grandes :(')
+        
+## función para saber si sufijamos con -yuq
+
+def yuq(s,suffix):
+    if not (s.endswith('chunka') or s.endswith('pachak') or s.endswith('waranqa')):
+        if suffix == True:
+            if s[-1] in ['a','e','i','o','u']:
+                s = s + '-yuq'
+            else:
+                s = s + '-ni' + '-yuq'
+            return s
+        else:
+            return s
+    else:
+        return s
 
 ## input:::N: número decimal
 ## output::: número en palabras (Quechua)
@@ -66,29 +81,12 @@ def decimal_quec(N,suffix):
         ## restamos uno porque la posición empieza en cero
         numero_quechua = 'chunka' + ' ' + numeros_1_10[unidad - 1]
         ## -yuq
-        numero_quechua =
+        numero_quechua = yuq(numero_quechua)
         ## entregamos el número
         return numero_quechua
     ## en otro caso
     else:
         print('no conozco números tan grandes :(')
-
-
-
-## función para saber si sufijamos con -yuq
-
-def yuq(s,suffix):
-    if not (s.endswith('chunka') or s.endswith('pachak') or s.endswith('waranqa')):
-        if suffix == True:
-            if s[-1] in ['a','e','i','o','u']:
-                s = s + '-yuq'
-            else:
-                s = s + '-ni' + '-yuq'
-            return s
-        else:
-            return s
-    else:
-        return s
 
 
 ## input:::N: número decimal
