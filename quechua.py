@@ -46,7 +46,7 @@ def decimal_quec(N):
     ## en otro caso
     else:
         print('no conozco números tan grandes :(')
-        
+
 ## función para saber si sufijamos con -yuq
 
 def yuq(s,suffix):
@@ -81,7 +81,7 @@ def decimal_quec(N,suffix):
         ## restamos uno porque la posición empieza en cero
         numero_quechua = 'chunka' + ' ' + numeros_1_10[unidad - 1]
         ## -yuq
-        numero_quechua = yuq(numero_quechua)
+        numero_quechua = yuq(numero_quechua, True)
         ## entregamos el número
         return numero_quechua
     ## en otro caso
